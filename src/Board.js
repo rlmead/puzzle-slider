@@ -2,7 +2,7 @@ import React from 'react';
 
 function Board(props) {
     return (
-        <div className='container text-center'>
+        <div className='container text-center mb-4'>
             <div className='row'>
                 <div className='col-sm-6 offset-sm-3'>
                     <div className='row'>
@@ -12,7 +12,7 @@ function Board(props) {
                                     <div
                                         className='col-3'
                                         key={index}>
-                                        {item.display}
+                                        {item}
                                     </div>
                                 )
                             })

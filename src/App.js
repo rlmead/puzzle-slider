@@ -10,22 +10,22 @@ class App extends React.Component {
       // keep track of image order
       // for rendering images and checking solution
       puzzle: [
-        {place: 0, display: 0},
-        {place: 1, display: 1},
-        {place: 2, display: 2},
-        {place: 3, display: 3},
-        {place: 4, display: 4},
-        {place: 5, display: 5},
-        {place: 6, display: 6},
-        {place: 7, display: 7},
-        {place: 8, display: 8},
-        {place: 9, display: 9},
-        {place: 10, display: 10},
-        {place: 11, display: 11},
-        {place: 12, display: 12},
-        {place: 13, display: 13},
-        {place: 14, display: 14},
-        {place: 15, display: 15}
+        {display: 0, solution: 0},
+        {display: 1, solution: 1},
+        {display: 2, solution: 2},
+        {display: 3, solution: 3},
+        {display: 4, solution: 4},
+        {display: 5, solution: 5},
+        {display: 6, solution: 6},
+        {display: 7, solution: 7},
+        {display: 8, solution: 8},
+        {display: 9, solution: 9},
+        {display: 10, solution: 10},
+        {display: 11, solution: 11},
+        {display: 12, solution: 12},
+        {display: 13, solution: 13},
+        {display: 14, solution: 14},
+        {display: 15, solution: 15},
       ],
       solved: false,
     };
@@ -56,12 +56,14 @@ class App extends React.Component {
     // add to public folder?
     // crop image to square
     // slice image into 4x4 grid
-    // replace top right corner (index 3) with all-black square
+    // redisplay top right corner (index 3) with all-black square
   }
 
   // function to shuffle puzzle
   shufflePuzzle() {
-    console.log('shuffling puzzle');
+    // choose a random tile to be the blank tile
+    let blankTile=Math.floor(Math.random() * 16);
+    
   }
 
   // function to move a tile
@@ -79,8 +81,8 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>solve this puzzle!</h1>
+      <div className="App text-center">
+        <h1 className="mb-4">solve this puzzle!</h1>
         {/* image input: drag & drop or choose file */}
         {/* when an image has been selected: */}
           {/* render sliced-up image with cutout */}
@@ -88,6 +90,13 @@ class App extends React.Component {
         <Board 
           puzzleState={this.state.puzzle}
         />
+        <button
+        type="button"
+        className="btn btn-primary"
+        onClick={this.shufflePuzzle}
+        >
+        shuffle
+        </button>
       </div>
     );
   }
