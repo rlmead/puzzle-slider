@@ -94,8 +94,8 @@ class App extends React.Component {
     let blankTile = this.state.puzzle.map(item => item.blankTile).indexOf(true);
     if (this.state.validMoves[clicked].indexOf(blankTile) != -1) {
       this.swapTiles(blankTile, clicked)
+      this.checkSolved();
     }
-    this.checkSolved();
   }
 
   // function to shuffle puzzle
@@ -118,7 +118,7 @@ class App extends React.Component {
   }
 
   // function to check if the puzzle has been solved
-  // to be run anytime a tile moves (componentDidUpdate?)
+  // to be run anytime a tile moves
   checkSolved() {
     this.state.puzzle.every((item, index) => item.solution === index)
       && alert('you won!');
