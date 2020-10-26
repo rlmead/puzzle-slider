@@ -63,12 +63,11 @@ class App extends React.Component {
   }
 
   // componentDidUpdate: update localStorage
-  // and check if the puzzle has been solved
   componentDidUpdate() {
     window.localStorage.setItem('puzzleState', JSON.stringify(this.state));
   }
 
-  // function to add a new image
+  // add a new image
   addImage() {
     console.log('adding new image');
     // check that image is big enough (600x600ish)
@@ -93,7 +92,7 @@ class App extends React.Component {
   moveTile(clicked) {
     let blankTile = this.state.puzzle.map(item => item.blankTile).indexOf(true);
     if (this.state.validMoves[clicked].indexOf(blankTile) != -1) {
-      this.swapTiles(blankTile, clicked)
+      this.swapTiles(blankTile, clicked);
       this.checkSolved();
     }
   }
