@@ -92,12 +92,12 @@ class App extends React.Component {
     let blankTile = Math.floor(Math.random() * 16);
     updatedPuzzle[blankTile].blankTile = true;
     // run swapTiles on blankTile in randomly-chosen directions 10x
-    // for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
       let validMoves = this.state.puzzle[blankTile].validMoves;
       let nextMove = validMoves[Math.floor(Math.random() * validMoves.length)];
       this.swapTiles(blankTile, nextMove);
       blankTile = nextMove;
-    // }
+    }
     this.setState({puzzle: updatedPuzzle})
   }
 
