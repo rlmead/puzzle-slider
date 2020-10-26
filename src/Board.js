@@ -13,7 +13,7 @@ function Board(props) {
                                         className='col-3'
                                         key={index}
                                         onClick={() => props.moveTile(index)}>
-                                        {(item.solution != 0) && item.solution}
+                                        {(!item.blankTile) && item.solution}
                                     </div>
                                 )
                             })
