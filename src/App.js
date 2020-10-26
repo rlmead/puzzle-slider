@@ -76,10 +76,10 @@ class App extends React.Component {
   // function to move one tile to the empty space (if it's adjacent)
   moveTile(clicked) {
     let blankTile = this.state.puzzle.map(item => item.blankTile).indexOf(true);
-    console.log(blankTile);
     if (this.state.puzzle[clicked].validMoves.indexOf(blankTile) != -1) {
       this.swapTiles(blankTile, clicked)
     }
+    this.checkSolved();
   }
 
   // function to shuffle puzzle
@@ -91,20 +91,21 @@ class App extends React.Component {
     // choose a random tile to be the blank tile
     let blankTile = Math.floor(Math.random() * 16);
     updatedPuzzle[blankTile].blankTile = true;
-    this.setState({puzzle: updatedPuzzle})
-    // run moveTile on blankTile in random directions 10x
+    // run swapTiles on blankTile in randomly-chosen directions 10x
     // for (let i = 0; i < 10; i++) {
-    //   let validMoves = this.state.puzzle[blankTile].validMoves;
-    //   let nextMove = validMoves[Math.floor(Math.random() * validMoves.length)];
-    //   this.swapTiles(blankTile, nextMove);
-    //   blankTile = nextMove;
+      let validMoves = this.state.puzzle[blankTile].validMoves;
+      let nextMove = validMoves[Math.floor(Math.random() * validMoves.length)];
+      this.swapTiles(blankTile, nextMove);
+      blankTile = nextMove;
     // }
+    this.setState({puzzle: updatedPuzzle})
   }
 
   // function to check if the puzzle has been solved
   // to be run anytime a tile moves (componentDidUpdate?)
   checkSolved() {
-    console.log('checking for solution');
+    this.state.puzzle.every((item, index) => item.solution === index)
+      && alert('you won!');
   }
 
   render() {
