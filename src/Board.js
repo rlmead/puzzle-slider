@@ -11,8 +11,9 @@ function Board(props) {
                                 return (
                                     <div
                                         className='col-3'
-                                        key={index}>
-                                        {item}
+                                        key={index}
+                                        onClick={() => props.moveTile(index)}>
+                                        {(item.solution != 0) && item.solution}
                                     </div>
                                 )
                             })
