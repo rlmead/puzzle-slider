@@ -130,11 +130,11 @@ class App extends React.Component {
         {/* image input: drag & drop or choose file */}
         {/* when an image has been selected: */}
         {/* render sliced-up image with cutout */}
-        {/* render button: shuffle puzzle */}
         <Board
           puzzleState={this.state.puzzle}
           moveTile={this.moveTile}
         />
+        {/* render button to shuffle puzzle */}
         <button
           type="button"
           className="btn btn-primary"
