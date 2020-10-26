@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Square(props) {
+function Board(props) {
     return (
         <div className='container text-center'>
             <div className='row'>
@@ -10,9 +10,9 @@ function Square(props) {
                             props.puzzleState.map((item, index) => {
                                 return (
                                     <div
-                                        className='col-4'
+                                        className='col-3'
                                         key={index}>
-                                        {item}
+                                        {item.display}
                                     </div>
                                 )
                             })
@@ -24,4 +24,4 @@ function Square(props) {
     )
 }
 
-export default Square;
+export default Board;
