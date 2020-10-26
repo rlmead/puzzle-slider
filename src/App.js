@@ -82,12 +82,10 @@ class App extends React.Component {
   swapTiles(tile1, tile2) {
     console.log(`swapping tiles ${tile1} and ${tile2}`);
     let updatedPuzzle = this.state.puzzle;
-    let solution1 = updatedPuzzle[tile1].solution;
-    let solution2 = updatedPuzzle[tile2].solution;
-    updatedPuzzle[tile1].solution = solution2;
-    updatedPuzzle[tile2].solution = solution1;
-    updatedPuzzle[tile1].blankTile = false;
-    updatedPuzzle[tile2].blankTile = true;
+    let tile1Data = updatedPuzzle[tile1];
+    let tile2Data = updatedPuzzle[tile2];
+    updatedPuzzle[tile1] = tile2Data;
+    updatedPuzzle[tile2] = tile1Data;
     this.setState({ puzzle: updatedPuzzle })
   }
 
