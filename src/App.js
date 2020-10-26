@@ -10,22 +10,40 @@ class App extends React.Component {
       // keep track of image order
       // for rendering images and checking solution
       puzzle: [
-        { blankTile: false, solution: 0, validMoves: [1, 4] },
-        { blankTile: false, solution: 1, validMoves: [0, 2, 5] },
-        { blankTile: false, solution: 2, validMoves: [1, 3, 6] },
-        { blankTile: false, solution: 3, validMoves: [2, 7] },
-        { blankTile: false, solution: 4, validMoves: [0, 5, 8] },
-        { blankTile: false, solution: 5, validMoves: [1, 4, 6, 9] },
-        { blankTile: false, solution: 6, validMoves: [2, 5, 7, 10] },
-        { blankTile: false, solution: 7, validMoves: [3, 6, 11] },
-        { blankTile: false, solution: 8, validMoves: [4, 9, 12] },
-        { blankTile: false, solution: 9, validMoves: [5, 8, 10, 13] },
-        { blankTile: false, solution: 10, validMoves: [6, 9, 11, 14] },
-        { blankTile: false, solution: 11, validMoves: [7, 10, 15] },
-        { blankTile: false, solution: 12, validMoves: [8, 13] },
-        { blankTile: false, solution: 13, validMoves: [9, 12, 14] },
-        { blankTile: false, solution: 14, validMoves: [10, 13, 15] },
-        { blankTile: false, solution: 15, validMoves: [11, 14] },
+        { blankTile: false, solution: 0, pixels: [0,0] },
+        { blankTile: false, solution: 1, pixels: [0,0] },
+        { blankTile: false, solution: 2, pixels: [0,0] },
+        { blankTile: false, solution: 3, pixels: [0,0] },
+        { blankTile: false, solution: 4, pixels: [0,0] },
+        { blankTile: false, solution: 5, pixels: [0,0] },
+        { blankTile: false, solution: 6, pixels: [0,0] },
+        { blankTile: false, solution: 7, pixels: [0,0] },
+        { blankTile: false, solution: 8, pixels: [0,0] },
+        { blankTile: false, solution: 9, pixels: [0,0] },
+        { blankTile: false, solution: 10, pixels: [0,0] },
+        { blankTile: false, solution: 11, pixels: [0,0] },
+        { blankTile: false, solution: 12, pixels: [0,0] },
+        { blankTile: false, solution: 13, pixels: [0,0] },
+        { blankTile: false, solution: 14, pixels: [0,0] },
+        { blankTile: false, solution: 15, pixels: [0,0] },
+      ],
+      validMoves: [
+        [1, 4],
+        [0, 2, 5],
+        [1, 3, 6],
+        [2, 7],
+        [0, 5, 8],
+        [1, 4, 6, 9],
+        [2, 5, 7, 10],
+        [3, 6, 11],
+        [4, 9, 12],
+        [5, 8, 10, 13],
+        [6, 9, 11, 14],
+        [7, 10, 15],
+        [8, 13],
+        [9, 12, 14],
+        [10, 13, 15],
+        [11, 14]
       ],
       solved: false,
     };
@@ -62,7 +80,7 @@ class App extends React.Component {
 
   // function to swap two tiles
   swapTiles(tile1, tile2) {
-    console.log(`swapping tile ${tile1} and ${tile2}`);
+    console.log(`swapping tiles ${tile1} and ${tile2}`);
     let updatedPuzzle = this.state.puzzle;
     let solution1 = updatedPuzzle[tile1].solution;
     let solution2 = updatedPuzzle[tile2].solution;
@@ -76,7 +94,7 @@ class App extends React.Component {
   // function to move one tile to the empty space (if it's adjacent)
   moveTile(clicked) {
     let blankTile = this.state.puzzle.map(item => item.blankTile).indexOf(true);
-    if (this.state.puzzle[clicked].validMoves.indexOf(blankTile) != -1) {
+    if (this.state.validMoves[clicked].indexOf(blankTile) != -1) {
       this.swapTiles(blankTile, clicked)
     }
     this.checkSolved();
@@ -93,7 +111,7 @@ class App extends React.Component {
     updatedPuzzle[blankTile].blankTile = true;
     // run swapTiles on blankTile in randomly-chosen directions 10x
     for (let i = 0; i < 20; i++) {
-      let validMoves = this.state.puzzle[blankTile].validMoves;
+      let validMoves = this.state.validMoves[blankTile];
       let nextMove = validMoves[Math.floor(Math.random() * validMoves.length)];
       this.swapTiles(blankTile, nextMove);
       blankTile = nextMove;
