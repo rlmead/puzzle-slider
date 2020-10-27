@@ -55,22 +55,27 @@ class App extends React.Component {
     this.fileUpload = null;
   }
 
-  // componentDidMount
-  componentDidMount() {
-    // console.log('mounted');
-  }
-
-  // componentDidUpdate
-  componentDidUpdate() {
-  }
-  
   // add a new image
   addImage(event) {
     let files = event.target.files;
     if (files) {
-      this.fileUpload = URL.createObjectURL(files[0]);
+      let objectUrl = URL.createObjectURL(files[0]);
+      var img = new Image();
+      // check that image is big enough (600x600ish)
+      var width;
+      var height;
+      img.onload = function () {
+        width = img.width;
+        height = img.height;
+        // if (img.width < 600 || img.height < 600) {
+        //   alert('please choose a picture that is at least 600px wide and 600px high');
+        // } else {
+        //   this.fileUpload = objectUrl;
+        // }
+      }
+      img.src = objectUrl;
+      console.log(width);
     }
-    // check that image is big enough (600x600ish)
     // prepare the image for display
   }
 
@@ -128,6 +133,7 @@ class App extends React.Component {
     return (
       <div className="App text-center">
         <h1 className="mb-4">Solve this puzzle!</h1>
+      {/* image input: choose file */}
         <input
           id='input'
           type='file'
@@ -142,12 +148,11 @@ class App extends React.Component {
         >
           shuffle
         </button>
-        {/* image input: drag & drop or choose file */}
-        {/* when an image has been selected: */}
         {/* render sliced-up image with cutout */}
         <Board
           puzzleState={this.state.puzzle}
           moveTile={this.moveTile}
+          // use default image if user has not uploaded one
           image={this.fileUpload ? this.fileUpload : DefaultPic}
         />
       </div>
