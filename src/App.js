@@ -60,21 +60,16 @@ class App extends React.Component {
     let files = event.target.files;
     if (files) {
       let objectUrl = URL.createObjectURL(files[0]);
+      // check that image is big enough (600x600)
       var img = new Image();
-      // check that image is big enough (600x600ish)
-      var width;
-      var height;
       img.onload = function () {
-        width = img.width;
-        height = img.height;
-        // if (img.width < 600 || img.height < 600) {
-        //   alert('please choose a picture that is at least 600px wide and 600px high');
-        // } else {
-        //   this.fileUpload = objectUrl;
-        // }
+        if (img.width < 600 || img.height < 600) {
+          alert('please choose a picture that is at least 600px wide and 600px high');
+          return;
+        }
       }
+      this.fileUpload = objectUrl;
       img.src = objectUrl;
-      console.log(width);
     }
     // prepare the image for display
   }
