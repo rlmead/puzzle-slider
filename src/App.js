@@ -10,48 +10,47 @@ class App extends React.Component {
       // keep track of image order
       // for rendering images and checking solution
       puzzle: [
-        { blankTile: false, solution: 0, margin: '0px 0px 0px 0px' },
-        { blankTile: false, solution: 2, margin: '0px 0px 0px -150px' },
-        { blankTile: false, solution: 1, margin: '0px 0px 0px -300px' },
-        { blankTile: false, solution: 3, margin: '0px 0px 0px -400px' },
-        { blankTile: false, solution: 4, margin: '-150px 0px 0px 0px' },
-        { blankTile: false, solution: 5, margin: '-150px 0px 0px -150px' },
-        { blankTile: false, solution: 6, margin: '-150px 0px 0px -300px' },
-        { blankTile: false, solution: 7, margin: '-150px 0px 0px -400px' },
-        { blankTile: false, solution: 8, margin: '-300px 0px 0px 0px' },
-        { blankTile: false, solution: 9, margin: '-300px 0px 0px -150px' },
-        { blankTile: false, solution: 10, margin: '-300px 0px 0px-30 0px' },
-        { blankTile: false, solution: 11, margin: '-300px 0px 0px-40 0px' },
-        { blankTile: false, solution: 12, margin: '-450px 0px 0px 0px' },
-        { blankTile: false, solution: 13, margin: '-450px 0px 0px -150px' },
-        { blankTile: false, solution: 14, margin: '-450px 0px 0px -300px' },
-        { blankTile: false, solution: 15, margin: '-450px 0px 0px -400px' },
+        { blankTile: false, solution: 2 },
+        { blankTile: false, solution: 1 },
+        { blankTile: false, solution: 0 },
+        { blankTile: false, solution: 3 },
+        { blankTile: false, solution: 4 },
+        { blankTile: false, solution: 5 },
+        { blankTile: false, solution: 6 },
+        { blankTile: false, solution: 7 },
+        { blankTile: false, solution: 8 },
+        { blankTile: false, solution: 9 },
+        { blankTile: false, solution: 10 },
+        { blankTile: false, solution: 11 },
+        { blankTile: false, solution: 12 },
+        { blankTile: false, solution: 13 },
+        { blankTile: false, solution: 14 },
+        { blankTile: false, solution: 15 },
       ],
-      validMoves: [
-        [1, 4],
-        [0, 2, 5],
-        [1, 3, 6],
-        [2, 7],
-        [0, 5, 8],
-        [1, 4, 6, 9],
-        [2, 5, 7, 10],
-        [3, 6, 11],
-        [4, 9, 12],
-        [5, 8, 10, 13],
-        [6, 9, 11, 14],
-        [7, 10, 15],
-        [8, 13],
-        [9, 12, 14],
-        [10, 13, 15],
-        [11, 14]
-      ],
-      solved: false,
     };
     this.addImage = this.addImage.bind(this);
     this.swapTiles = this.swapTiles.bind(this);
     this.moveTile = this.moveTile.bind(this);
     this.shufflePuzzle = this.shufflePuzzle.bind(this);
     this.checkSolved = this.checkSolved.bind(this);
+    this.validMoves = [
+      [1, 4],
+      [0, 2, 5],
+      [1, 3, 6],
+      [2, 7],
+      [0, 5, 8],
+      [1, 4, 6, 9],
+      [2, 5, 7, 10],
+      [3, 6, 11],
+      [4, 9, 12],
+      [5, 8, 10, 13],
+      [6, 9, 11, 14],
+      [7, 10, 15],
+      [8, 13],
+      [9, 12, 14],
+      [10, 13, 15],
+      [11, 14]
+    ];
   }
 
   // componentDidMount: load state from localStorage
@@ -71,10 +70,12 @@ class App extends React.Component {
   addImage() {
     console.log('adding new image');
     // check that image is big enough (600x600ish)
-    // add to public folder?
-    // crop image to square
-    // slice image into 4x4 grid
-    // redisplay top right corner (index 3) with all-black square
+    // prepare the image for display
+  }
+
+  // function to identify valid moves given the current square
+  validMoves(index) {
+    console.log('finding valid moves');
   }
 
   // function to swap two tiles
@@ -91,7 +92,7 @@ class App extends React.Component {
   // function to move one tile to the empty space (if it's adjacent)
   moveTile(clicked) {
     let blankTile = this.state.puzzle.map(item => item.blankTile).indexOf(true);
-    if (this.state.validMoves[clicked].indexOf(blankTile) != -1) {
+    if (this.validMoves[clicked].indexOf(blankTile) != -1) {
       this.swapTiles(blankTile, clicked);
       this.checkSolved();
     }
@@ -108,12 +109,12 @@ class App extends React.Component {
     updatedPuzzle[blankTile].blankTile = true;
     // run swapTiles on blankTile in randomly-chosen directions 10x
     for (let i = 0; i < 20; i++) {
-      let validMoves = this.state.validMoves[blankTile];
-      let nextMove = validMoves[Math.floor(Math.random() * validMoves.length)];
+      // let validMoves = this.state.validMoves[blankTile];
+      let nextMove = this.validMoves[blankTile][Math.floor(Math.random() * this.validMoves[blankTile].length)];
       this.swapTiles(blankTile, nextMove);
       blankTile = nextMove;
     }
-    this.setState({puzzle: updatedPuzzle})
+    this.setState({ puzzle: updatedPuzzle })
   }
 
   // function to check if the puzzle has been solved

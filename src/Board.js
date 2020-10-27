@@ -27,9 +27,10 @@ function Board(props) {
                       (!item.blankTile)
                       && <img
                         src={DefaultPic}
-                        style={{
-                          margin: '-300px 0px 0px -150px'
-                        }}>
+                        // style={{
+                        //   margin: item.margin
+                        // }}
+                        >
                       </img>
                     }
                   </div>
