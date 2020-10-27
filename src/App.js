@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Board from './Board.js'
+import DefaultPic from './victoria-street.jpg';
 
 class App extends React.Component {
   // store state with constructor
@@ -51,33 +52,35 @@ class App extends React.Component {
       [10, 13, 15],
       [11, 14]
     ];
+    this.fileUpload = null;
   }
 
   // componentDidMount
   componentDidMount() {
-    console.log('mounted');
+    // console.log('mounted');
   }
 
   // componentDidUpdate
   componentDidUpdate() {
-    console.log('updated');
   }
-
+  
   // add a new image
-  addImage() {
-    console.log('adding new image');
+  addImage(event) {
+    let files = event.target.files;
+    if (files) {
+      this.fileUpload = URL.createObjectURL(files[0]);
+    }
     // check that image is big enough (600x600ish)
     // prepare the image for display
   }
 
   // function to identify valid moves given the current square
   validMoves(index) {
-    console.log('finding valid moves');
+    // console.log('finding valid moves');
   }
 
   // function to swap two tiles
   swapTiles(tile1, tile2) {
-    console.log(`swapping tiles ${tile1} and ${tile2}`);
     let updatedPuzzle = this.state.puzzle;
     let tile1Data = updatedPuzzle[tile1];
     let tile2Data = updatedPuzzle[tile2];
@@ -89,7 +92,7 @@ class App extends React.Component {
   // function to move one tile to the empty space (if it's adjacent)
   moveTile(clicked) {
     let blankTile = this.state.puzzle.map(item => item.blankTile).indexOf(true);
-    if (this.validMoves[clicked].indexOf(blankTile) != -1) {
+    if (this.validMoves[clicked].indexOf(blankTile) !== -1) {
       this.swapTiles(blankTile, clicked);
       this.checkSolved();
     }
@@ -124,23 +127,29 @@ class App extends React.Component {
   render() {
     return (
       <div className="App text-center">
-        <h1 className="mb-4">solve this puzzle!</h1>
-        <input type='file'></input>
+        <h1 className="mb-4">Solve this puzzle!</h1>
+        <input
+          id='input'
+          type='file'
+          accept='image/png, image/jpeg'
+          onChange={this.addImage}>
+        </input>
+        {/* render button to shuffle puzzle */}
+        <button
+          type="button"
+          className="btn btn-primary mb-4"
+          onClick={this.shufflePuzzle}
+        >
+          shuffle
+        </button>
         {/* image input: drag & drop or choose file */}
         {/* when an image has been selected: */}
         {/* render sliced-up image with cutout */}
         <Board
           puzzleState={this.state.puzzle}
           moveTile={this.moveTile}
+          image={this.fileUpload ? this.fileUpload : DefaultPic}
         />
-        {/* render button to shuffle puzzle */}
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={this.shufflePuzzle}
-        >
-          shuffle
-        </button>
       </div>
     );
   }
