@@ -10,9 +10,9 @@ class App extends React.Component {
       // keep track of image order
       // for rendering images and checking solution
       puzzle: [
-        { blankTile: false, solution: 2 },
-        { blankTile: false, solution: 1 },
         { blankTile: false, solution: 0 },
+        { blankTile: false, solution: 1 },
+        { blankTile: false, solution: 2 },
         { blankTile: false, solution: 3 },
         { blankTile: false, solution: 4 },
         { blankTile: false, solution: 5 },
@@ -125,6 +125,7 @@ class App extends React.Component {
     return (
       <div className="App text-center">
         <h1 className="mb-4">solve this puzzle!</h1>
+        <input type='file'></input>
         {/* image input: drag & drop or choose file */}
         {/* when an image has been selected: */}
         {/* render sliced-up image with cutout */}

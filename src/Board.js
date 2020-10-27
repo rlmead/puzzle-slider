@@ -25,10 +25,13 @@ function Board(props) {
             (!item.blankTile)
             && <img
               src={DefaultPic}
-            // style={{
-            //   margin: item.margin
-            // }}
-            >
+              style={{
+                // calculate the part of the image to show
+                // according to where the item needs to be in the solution
+                marginTop: `${Math.floor(item.solution/4)*-150}px`,
+                marginLeft: `${(item.solution%4)*-150}px`,
+              }}
+              >
             </img>
           }
         </Col>
