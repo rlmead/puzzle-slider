@@ -53,17 +53,14 @@ class App extends React.Component {
     ];
   }
 
-  // componentDidMount: load state from localStorage
+  // componentDidMount
   componentDidMount() {
-    let puzzleState = JSON.parse(window.localStorage.getItem('puzzleState'));
-    if (puzzleState) {
-      this.setState(puzzleState);
-    }
+    console.log('mounted');
   }
 
-  // componentDidUpdate: update localStorage
+  // componentDidUpdate
   componentDidUpdate() {
-    window.localStorage.setItem('puzzleState', JSON.stringify(this.state));
+    console.log('updated');
   }
 
   // add a new image
