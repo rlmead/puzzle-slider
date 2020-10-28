@@ -46,7 +46,7 @@ function Board(props) {
   };
 
   return (
-    <Container className='text-center mb-4'>
+    <Container className='mb-4'>
       {
         grid
       }

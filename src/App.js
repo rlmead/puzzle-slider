@@ -108,7 +108,7 @@ class App extends React.Component {
     let blankTile = Math.floor(Math.random() * 16);
     updatedPuzzle[blankTile].blankTile = true;
     // run swapTiles on blankTile in randomly-chosen directions 10x
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 30; i++) {
       // let validMoves = this.state.validMoves[blankTile];
       let nextMove = this.validMoves[blankTile][Math.floor(Math.random() * this.validMoves[blankTile].length)];
       this.swapTiles(blankTile, nextMove);
@@ -126,23 +126,23 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App text-center">
-        <h1 className="mb-4">Solve this puzzle!</h1>
-      {/* image input: choose file */}
-        <input
-          id='input'
-          type='file'
-          accept='image/png, image/jpeg'
-          onChange={this.addImage}>
-        </input>
+      <div className="App">
+        <h1 className="m-4">Solve this puzzle!</h1>
         {/* render button to shuffle puzzle */}
         <button
           type="button"
-          className="btn btn-primary mb-4"
+          className="btn btn-primary ml-4 mb-4"
           onClick={this.shufflePuzzle}
         >
           shuffle
         </button>
+        {/* image input: choose file */}
+        {/* <input
+          id='input'
+          type='file'
+          accept='image/png, image/jpeg'
+          onChange={this.addImage}>
+        </input> */}
         {/* render sliced-up image with cutout */}
         <Board
           puzzleState={this.state.puzzle}
