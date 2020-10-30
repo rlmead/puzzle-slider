@@ -34,24 +34,7 @@ class App extends React.Component {
     this.moveTile = this.moveTile.bind(this);
     this.shufflePuzzle = this.shufflePuzzle.bind(this);
     this.checkSolved = this.checkSolved.bind(this);
-    this.validMoves = [
-      [1, 4],
-      [0, 2, 5],
-      [1, 3, 6],
-      [2, 7],
-      [0, 5, 8],
-      [1, 4, 6, 9],
-      [2, 5, 7, 10],
-      [3, 6, 11],
-      [4, 9, 12],
-      [5, 8, 10, 13],
-      [6, 9, 11, 14],
-      [7, 10, 15],
-      [8, 13],
-      [9, 12, 14],
-      [10, 13, 15],
-      [11, 14]
-    ];
+    this.validMoves = this.validMoves.bind(this);
     this.fileUpload = null;
   }
 
@@ -76,7 +59,12 @@ class App extends React.Component {
 
   // function to identify valid moves given the current square
   validMoves(index) {
-    // console.log('finding valid moves');
+    let output = [];
+    (index % 4 !== 0) && output.push(index-1);
+    (index % 4 !== 3) && output.push(index+1);
+    (index >= 4) && output.push(index-4);
+    (index < 12 ) && output.push(index+4);
+    return output;
   }
 
   // function to swap two tiles
@@ -92,7 +80,7 @@ class App extends React.Component {
   // function to move one tile to the empty space (if it's adjacent)
   moveTile(clicked) {
     let blankTile = this.state.puzzle.map(item => item.blankTile).indexOf(true);
-    if (this.validMoves[clicked].indexOf(blankTile) !== -1) {
+    if (this.validMoves(clicked).indexOf(blankTile) !== -1) {
       this.swapTiles(blankTile, clicked);
       this.checkSolved();
     }
@@ -109,8 +97,7 @@ class App extends React.Component {
     updatedPuzzle[blankTile].blankTile = true;
     // run swapTiles on blankTile in randomly-chosen directions 10x
     for (let i = 0; i < 30; i++) {
-      // let validMoves = this.state.validMoves[blankTile];
-      let nextMove = this.validMoves[blankTile][Math.floor(Math.random() * this.validMoves[blankTile].length)];
+      let nextMove = this.validMoves(blankTile)[Math.floor(Math.random() * this.validMoves(blankTile).length)];
       this.swapTiles(blankTile, nextMove);
       blankTile = nextMove;
     }
