@@ -1,5 +1,4 @@
 import React from 'react';
-import DefaultPic from './victoria-street.jpg';
 import { Container, Row, Col } from 'reactstrap';
 
 function Board(props) {
@@ -7,11 +6,11 @@ function Board(props) {
   for (let r = 0; r < 4; r++) {
     let rowArray = [];
     for (let c = 0; c < 4; c++) {
-      let item = props.puzzleState[r*4+c];
+      let item = props.puzzleState[r * 4 + c];
       rowArray.push(
         <Col
-          key={r*4+c}
-          onClick={() => props.moveTile(r*4+c)}
+          key={r * 4 + c}
+          onClick={() => props.moveTile(r * 4 + c)}
           style={{
             maxWidth: '150px',
             minWidth: '150px',
@@ -24,26 +23,30 @@ function Board(props) {
           {
             (!item.blankTile)
             && <img
-              src={DefaultPic}
+              alt='one-sixteenth of puzzle'
+              src={props.image}
               style={{
                 // calculate the part of the image to show
                 // according to where the item needs to be in the solution
-                marginTop: `${Math.floor(item.solution/4)*-150}px`,
-                marginLeft: `${(item.solution%4)*-150}px`,
+                marginTop: `${Math.floor(item.solution / 4) * -150}px`,
+                marginLeft: `${(item.solution % 4) * -150}px`,
               }}
-              >
+            >
             </img>
           }
         </Col>
       );
     };
     grid.push(
-      <Row>{rowArray}</Row>
+      <Row
+      key={'row'+r} >
+        { rowArray }
+      </Row >
     )
   };
 
   return (
-    <Container className='text-center mb-4'>
+    <Container className='mb-4'>
       {
         grid
       }
